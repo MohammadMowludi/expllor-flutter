@@ -17,16 +17,21 @@ class _SearchScreenState extends State<SearchScreen> {
      {'type': 'image', 'url': 'https://picsum.photos/204'}, // وسط
       {'type': 'image', 'url': 'https://picsum.photos/204'}, 
        {'type': 'image', 'url': 'https://picsum.photos/204'}, 
+        {'type': 'image', 'url': 'https://picsum.photos/204'}, 
+         {'type': 'image', 'url': 'https://picsum.photos/204'}, 
     {'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true}, // ستون راست
    // {'type': 'video', 'url': 'https://example.com/short1.mp4'}, // وسط (ویدیو کوچک)
     {'type': 'image', 'url': 'https://picsum.photos/204'}, 
      {'type': 'image', 'url': 'https://picsum.photos/204'}, // وسط
+  //    {'type': 'image', 'url': 'https://picsum.photos/204'}, 
+  {'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},
       {'type': 'image', 'url': 'https://picsum.photos/204'}, 
-       {'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true}, // ستون چپ
+     {'type': 'image', 'url': 'https://picsum.photos/204'}, // وسط
+      {'type': 'image', 'url': 'https://picsum.photos/204'}, 
        {'type': 'image', 'url': 'https://picsum.photos/204'}, 
-        
-  
-    {'type': 'image', 'url': 'https://example.com/square2.jpg'}, // وسط
+        {'type': 'image', 'url': 'https://picsum.photos/204'}, 
+         {'type': 'image', 'url': 'https://picsum.photos/204'}, 
+           {'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},
   ];
 
   final Map<int, VideoPlayerController> _controllers = {};
