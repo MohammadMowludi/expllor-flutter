@@ -11,6 +11,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final List<Map<String, dynamic>> posts = [
+    //هر محتوایی که قراره وسط باشه یا چپ یا راست طوری که نوشته شده به ترتیب باید کد گذاری شود
    {'type': 'video', 'url': 'https://v.ftcdn.net/11/21/46/21/240_F_1121462188_3P2cGXzNE4ZLKOvrYaB2MZAGHXXhycP2_ST.mp4', 'isTall': true}, // ستون چپ
     {'type': 'image', 'url': 'https://picsum.photos/204'}, 
      {'type': 'image', 'url': 'https://picsum.photos/204'}, // وسط
