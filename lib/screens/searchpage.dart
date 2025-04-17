@@ -18,13 +18,27 @@ class _SearchScreenState extends State<SearchScreen> {
     {'type': 'video', 'url': 'https://v.ftcdn.net/11/21/46/21/240_F_1121462188_3P2cGXzNE4ZLKOvrYaB2MZAGHXXhycP2_ST.mp4', 'isTall': true},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'video', 'url': 'https://v.ftcdn.net/11/21/46/21/240_F_1121462188_3P2cGXzNE4ZLKOvrYaB2MZAGHXXhycP2_ST.mp4', 'isTall': true},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},{'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},{'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},{'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},
   ];
 
   final List<Map<String, dynamic>> arrangedPosts = [];
@@ -50,16 +64,28 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     int rowCount = 0;
-    while (tallVideos.isNotEmpty || others.isNotEmpty) {
-      if (tallVideos.isNotEmpty) {
-        var tall = tallVideos.removeAt(0);
-        arrangedPosts.add({...tall, 'tallPosition': rowCount % 2 == 0 ? 'left' : 'right'});
+    while (  others.isNotEmpty|| tallVideos.isNotEmpty) {
+      if((rowCount % 2) == 0) {
+        if (tallVideos.isNotEmpty) {
+          var tall = tallVideos.removeAt(0);
+          arrangedPosts.add(tall);
+        }
+        for (int i = 0; i < 4 && others.isNotEmpty; i++) {
+          arrangedPosts.add(others.removeAt(0));
+        }
+      }else{
+        for (int i = 0; i < 2 && others.isNotEmpty; i++) {
+          arrangedPosts.add(others.removeAt(0));
+        }
+        if (tallVideos.isNotEmpty) {
+          var tall = tallVideos.removeAt(0);
+          arrangedPosts.add(tall);
+        }
+        for (int i = 0; i < 2 && others.isNotEmpty; i++) {
+          arrangedPosts.add(others.removeAt(0));
+        }
+        
       }
-
-      for (int i = 0; i < 4 && others.isNotEmpty; i++) {
-        arrangedPosts.add(others.removeAt(0));
-      }
-
       rowCount++;
     }
   }
@@ -172,8 +198,8 @@ class _SearchScreenState extends State<SearchScreen> {
               physics: const BouncingScrollPhysics(),
               child: StaggeredGrid.count(
                 crossAxisCount: 3,
-                mainAxisSpacing: 1,
-                crossAxisSpacing: 1,
+                mainAxisSpacing: 2,
+                crossAxisSpacing: 2,
                 children: List.generate(arrangedPosts.length, (index) {
                   final post = arrangedPosts[index];
                   final isTall = post['type'] == 'video' && post['isTall'] == true;
