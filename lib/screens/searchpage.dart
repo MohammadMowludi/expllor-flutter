@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:video_player/video_player.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -15,25 +16,15 @@ class _SearchScreenState extends State<SearchScreen> {
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'video', 'url': 'https://v.ftcdn.net/11/21/46/21/240_F_1121462188_3P2cGXzNE4ZLKOvrYaB2MZAGHXXhycP2_ST.mp4', 'isTall': true},
+     {'type': 'video', 'url': 'https://v.ftcdn.net/11/21/46/21/240_F_1121462188_3P2cGXzNE4ZLKOvrYaB2MZAGHXXhycP2_ST.mp4', 'isTall': true},
+      {'type': 'video', 'url': 'https://v.ftcdn.net/11/21/46/21/240_F_1121462188_3P2cGXzNE4ZLKOvrYaB2MZAGHXXhycP2_ST.mp4', 'isTall': true},
+     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
+         {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
-      {'type': 'image', 'url': 'https://picsum.photos/204'},
-      {'type': 'image', 'url': 'https://picsum.photos/204'},
-      {'type': 'image', 'url': 'https://picsum.photos/204'},
-      {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},
+        {'type': 'image', 'url': 'https://picsum.photos/204'},
+           {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
@@ -41,8 +32,6 @@ class _SearchScreenState extends State<SearchScreen> {
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},{'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},{'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},{'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},
   ];
 
   final List<Map<String, dynamic>> arrangedPosts = [];
@@ -68,8 +57,8 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     int rowCount = 0;
-    while (  others.isNotEmpty|| tallVideos.isNotEmpty) {
-      if((rowCount % 2) == 0) {
+    while (others.isNotEmpty || tallVideos.isNotEmpty) {
+      if ((rowCount % 2) == 0) {
         if (tallVideos.isNotEmpty) {
           var tall = tallVideos.removeAt(0);
           arrangedPosts.add(tall);
@@ -77,7 +66,7 @@ class _SearchScreenState extends State<SearchScreen> {
         for (int i = 0; i < 4 && others.isNotEmpty; i++) {
           arrangedPosts.add(others.removeAt(0));
         }
-      }else{
+      } else {
         for (int i = 0; i < 2 && others.isNotEmpty; i++) {
           arrangedPosts.add(others.removeAt(0));
         }
@@ -88,7 +77,6 @@ class _SearchScreenState extends State<SearchScreen> {
         for (int i = 0; i < 2 && others.isNotEmpty; i++) {
           arrangedPosts.add(others.removeAt(0));
         }
-        
       }
       rowCount++;
     }
@@ -141,7 +129,13 @@ class _SearchScreenState extends State<SearchScreen> {
       return Stack(
         fit: StackFit.expand,
         children: [
-          Image.network('https://via.placeholder.com/300x300.png?text=Video', fit: BoxFit.cover),
+          Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: Container(
+              color: Colors.grey[300],
+            ),
+          ),
           const Center(
             child: Icon(Icons.play_circle_fill, size: 40, color: Colors.white70),
           ),
@@ -151,7 +145,13 @@ class _SearchScreenState extends State<SearchScreen> {
 
     final controller = _controllers[index];
     if (controller == null || !controller.value.isInitialized) {
-      return const Center(child: CircularProgressIndicator());
+      return Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          color: Colors.grey[300],
+        ),
+      );
     }
 
     return Stack(
@@ -172,7 +172,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Explore"),
+        title: const Text("Search"),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 1,
@@ -207,9 +207,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 children: List.generate(arrangedPosts.length, (index) {
                   final post = arrangedPosts[index];
                   final isTall = post['type'] == 'video' && post['isTall'] == true;
-                  final tallPosition = post['tallPosition'];
 
-                  // اگر tall هست، ستون چپ یا راست باشه
                   if (isTall) {
                     return StaggeredGridTile.count(
                       crossAxisCellCount: 1,
@@ -221,7 +219,6 @@ class _SearchScreenState extends State<SearchScreen> {
                     );
                   }
 
-                  // بقیه محتواها
                   return StaggeredGridTile.count(
                     crossAxisCellCount: 1,
                     mainAxisCellCount: 1,
