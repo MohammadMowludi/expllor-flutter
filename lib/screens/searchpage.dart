@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:video_player/video_player.dart';
 import 'package:shimmer/shimmer.dart';
+import '../core/tallVideo.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -12,7 +12,15 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final List<Map<String, dynamic>> rawPosts = [
+    {'type': 'video', 'url': 'https://videos.pexels.com/video-files/31246288/13345568_1080_1920_24fps.mp4', 'isTall': true},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'image', 'url': 'https://picsum.photos/204'},
+    {'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
@@ -28,20 +36,16 @@ class _SearchScreenState extends State<SearchScreen> {
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
     {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'video', 'url': 'https://v.ftcdn.net/11/21/46/21/240_F_1121462188_3P2cGXzNE4ZLKOvrYaB2MZAGHXXhycP2_ST.mp4', 'isTall': true},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'image', 'url': 'https://picsum.photos/204'},
-    {'type': 'video', 'url': 'https://videos.pexels.com/video-files/31387378/13392869_1080_1920_60fps.mp4', 'isTall': true},
+    {'type': 'video', 'url': 'https://v.ftcdn.net/11/21/46/21/240_F_1121462188_3P2cGXzNE4ZLKOvrYaB2MZAGHXXhycP2_ST.mp4', 'isTall':true},
+  
   ];
 
   final List<Map<String, dynamic>> arrangedPosts = [];
-  final Map<int, VideoPlayerController> _controllers = {};
 
   @override
   void initState() {
     super.initState();
     _prepareLayout();
-    _initializeVideos();
   }
 
   void _prepareLayout() {
@@ -82,31 +86,6 @@ class _SearchScreenState extends State<SearchScreen> {
     }
   }
 
-  void _initializeVideos() async {
-    for (int i = 0; i < arrangedPosts.length; i++) {
-      if (arrangedPosts[i]['type'] == 'video') {
-        final controller = VideoPlayerController.network(arrangedPosts[i]['url']);
-        await controller.initialize();
-        controller.setLooping(true);
-        controller.setVolume(0);
-
-        if (arrangedPosts[i]['isTall'] == true) {
-          controller.play();
-        }
-
-        if (mounted) {
-          setState(() => _controllers[i] = controller);
-        }
-      }
-    }
-  }
-
-  @override
-  void dispose() {
-    _controllers.forEach((_, c) => c.dispose());
-    super.dispose();
-  }
-
   Widget _buildMediaWidget(int index) {
     final post = arrangedPosts[index];
     final isTallVideo = post['type'] == 'video' && post['isTall'] == true;
@@ -143,28 +122,7 @@ class _SearchScreenState extends State<SearchScreen> {
       );
     }
 
-    final controller = _controllers[index];
-    if (controller == null || !controller.value.isInitialized) {
-      return Shimmer.fromColors(
-        baseColor: Colors.grey[300]!,
-        highlightColor: Colors.grey[100]!,
-        child: Container(
-          color: Colors.grey[300],
-        ),
-      );
-    }
-
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        VideoPlayer(controller),
-        const Positioned(
-          bottom: 4,
-          right: 4,
-          child: Icon(Icons.play_arrow, size: 16, color: Colors.white),
-        ),
-      ],
-    );
+    return TallVideo( post: post,);
   }
 
   @override
